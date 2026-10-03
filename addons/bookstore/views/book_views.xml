@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 1. Action: вказує Odoo відкрити нашу модель у вигляді списку (tree) та форми (form) -->
+    <record id="action_bookstore_book" model="ir.actions.act_window">
+        <name>Books</name>
+        <res_model>bookstore.book</res_model>
+        <view_mode>tree,form</view_mode>
+    </record>
+
+    <!-- 2. Головне меню у верхній панелі Odoo -->
+    <menuitem id="menu_bookstore_root" 
+              name="Bookstore" 
+              sequence="10"/>
+
+    <!-- 3. Підменю у лівій панелі (саме воно буде викликати нашу дію Action) -->
+    <menuitem id="menu_bookstore_books" 
+              name="Books" 
+              parent="menu_bookstore_root" 
+              action="action_bookstore_book" 
+              sequence="10"/>
+</odoo>
