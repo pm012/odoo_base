@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_bookstore_book_list" model="ir.ui.view">
+        <field name="name">bookstore.book.list</field>
+        <field name="model">bookstore.book</field>
+        <field name="arch" type="xml">
+            <list string="Books">
+                <field name="name"/>
+                <field name="author"/>
+                <field name="price"/>
+                <field name="isbn"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bookstore_book_form" model="ir.ui.view">
+        <field name="name">bookstore.book.form</name>
+        <field name="model">bookstore.book</field>
+        <field name="arch" type="xml">
+            <form string="Book">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Book Title"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Clean Code"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="author"/>
+                            <field name="isbn"/>
+                        </group>
+                        <group>
+                            <field name="price"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description_page">
+                            <field name="description" placeholder="Write book synopsis here..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="action_bookstore_book" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">bookstore.book</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_bookstore_root" 
