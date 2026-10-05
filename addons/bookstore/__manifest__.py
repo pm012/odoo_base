@@ -5,7 +5,10 @@
     'summary': 'Module for managing books and authors',
     'author': 'Kroshka & Co',
     'depends': ['base'],
-    'data': ['views/book_views.xml',],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/book_views.xml',
+    ],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
