@@ -11,6 +11,7 @@
                 <field name="price"/>
                 <field name="isbn"/>
                 <field name="quantity"/>
+                <field name="total_value"/>
             </list>
         </field>
     </record>
@@ -36,6 +37,7 @@
                             <field name="price"/>
                             <field name="quantity"/>
                             <field name="active"/>
+                            <field name="total_value"/>
                         </group>
                     </group>
                     <notebook>
