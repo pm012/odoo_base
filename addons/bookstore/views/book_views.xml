@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="view_bookstore_book_list" model="ir.ui.view">
         <field name="name">bookstore.book.list</field>
         <field name="model">bookstore.book</field>
@@ -15,7 +14,6 @@
             </list>
         </field>
     </record>
-
     <record id="view_bookstore_book_form" model="ir.ui.view">
         <field name="name">bookstore.book.form</field>
         <field name="model">bookstore.book</field>
@@ -49,7 +47,6 @@
             </form>
         </field>
     </record>
-
     <record id="action_bookstore_book" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">bookstore.book</field>
@@ -58,7 +55,6 @@
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_bookstore_book_list')}), 
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_bookstore_book_form')})]"/>
     </record>
-
     <record id="view_bookstore_author_list" model="ir.ui.view">
         <field name="name">bookstore.author.list</field>
         <field name="model">bookstore.author</field>
@@ -69,8 +65,7 @@
             </list>
         </field>
     </record>
-
-    <record id="view_bookstore_author_form" model="ir.ui.view">
+        <record id="view_bookstore_author_form" model="ir.ui.view">
         <field name="name">bookstore.author.form</field>
         <field name="model">bookstore.author</field>
         <field name="arch" type="xml">
@@ -85,6 +80,17 @@
                     <group>
                         <field name="birth_date"/>
                         <field name="biography"/>
+                    </group>                    
+                    
+                    <group string="Books Written">
+                        <field name="book_ids" nolabel="1">
+                            <tree string="Books" editable="bottom">
+                                <field name="name"/>
+                                <field name="price"/>
+                                <field name="quantity"/>
+                                <field name="total_value"/>
+                            </tree>
+                        </field>
                     </group>
                 </sheet>
             </form>
@@ -99,21 +105,17 @@
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_bookstore_author_list')}), 
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_bookstore_author_form')})]"/>
     </record>
-
     <menuitem id="menu_bookstore_root" 
               name="Bookstore" 
               sequence="10"/>
-
     <menuitem id="menu_bookstore_books" 
               name="Books" 
               parent="menu_bookstore_root" 
               action="action_bookstore_book" 
               sequence="10"/>
-
     <menuitem id="menu_bookstore_authors" 
               name="Authors" 
               parent="menu_bookstore_root" 
               action="action_bookstore_author" 
               sequence="20"/>
-
 </odoo>
