@@ -12,6 +12,7 @@
                 <field name="isbn"/>
                 <field name="quantity"/>
                 <field name="total_value"/>
+
             </list>
         </field>
     </record>
@@ -32,6 +33,7 @@
                         <group>
                             <field name="author_id"/>
                             <field name="isbn"/>
+                            <field name="genre_ids" widget="many2many_tags"/>
                         </group>
                         <group>
                             <field name="price"/>
@@ -88,12 +90,12 @@
                     </group>
                     <group string="Books Written">
                         <field name="book_ids" nolabel="1">
-                            <tree string="Books" editable="bottom">
+                            <list string="Books" editable="bottom">
                                 <field name="name"/>
                                 <field name="price"/>
                                 <field name="quantity"/>
                                 <field name="total_value"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>

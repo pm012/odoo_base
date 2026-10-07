@@ -8,6 +8,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/book_views.xml',
+        'views/genre_views.xml',
     ],
     'installable': True,
     'application': True,
