@@ -224,3 +224,12 @@ __marimo__/
 
 # Odooenv
 .odooenv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Infrastructure
+.env
+docker-compose.override.yml
+backup_*.sql

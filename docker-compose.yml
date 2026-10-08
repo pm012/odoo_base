@@ -11,14 +11,16 @@ services:
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons # modules should be placed here
+      - ./config/odoo.conf:/etc/odoo/odoo.conf:ro
   db:
     image: postgres:15
+  
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
     ports:
-      - "5432:5432"
+      - "5432:5432"    
     volumes:
       - odoo-db-data:/var/lib/postgresql/data
 
