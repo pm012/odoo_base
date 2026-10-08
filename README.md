@@ -1,4 +1,14 @@
-# odoo_base
+# Bookstore
+The bookstore is ERP for simple book store. 
+Further description and instructions TBD later as the project is in progress
+
+
+
+
+
+
+
+# TECH
 NB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Database: bookstore_db
 NB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
