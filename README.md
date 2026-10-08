@@ -63,3 +63,16 @@ docker compose exec db pg_dump -U odoo bookstore_db > backup_$(date +%Y%m%d).sql
 docker compose exec db psql -U odoo -d postgres -c "DROP DATABASE bookstore_dev;"
 ```
 
+#######################ORM#####################################
+Check validation via ORM
+```bash
+docker compose exec web odoo shell -d bookstore_db
+```
+and try
+
+```bash
+book = env['bookstore.book'].create({'name': 'Test Bad', 'price': -5})
+```
+to check that validation works on the ORM level
+(Ctrl+D or exit() to exit)
+
