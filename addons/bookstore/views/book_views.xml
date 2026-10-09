@@ -38,7 +38,7 @@
                         <group>
                             <field name="price"/>
                             <field name="quantity"/>
-                            <field name="total_value"/>
+                            <field name="total_value_display"/>
                             <field name="active"/>
                         </group>
                     </group>
