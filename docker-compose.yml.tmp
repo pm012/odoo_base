@@ -1,26 +1,27 @@
+# Without debugpy
 services:
   web:
-    build: .
+  # or 17.0 / 18.0 
+  #Choose Community version from https://hub.docker.com/_/odoo 
+  #NB: don't choose the latest tag, it may be unstable
+    image: odoo:19.0 
     depends_on:
       - db
     ports:
       - "8069:8069"
-      - "5678:5678"
-    environment:
-      - DEBUGPY=${DEBUGPY:-}
     volumes:
       - odoo-web-data:/var/lib/odoo
-      - ./addons:/mnt/extra-addons
+      - ./addons:/mnt/extra-addons # modules should be placed here
       - ./config/odoo.conf:/etc/odoo/odoo.conf:ro
-      - ./entrypoint.sh:/entrypoint.sh:ro
-    entrypoint: ["/bin/bash", "/entrypoint.sh"]
-    command: []
   db:
     image: postgres:15
+  
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
+    ports:
+      - "5432:5432"    
     volumes:
       - odoo-db-data:/var/lib/postgresql/data
 
