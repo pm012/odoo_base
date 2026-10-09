@@ -63,6 +63,11 @@ docker compose exec db pg_dump -U odoo bookstore_db > backup_$(date +%Y%m%d).sql
 docker compose exec db psql -U odoo -d postgres -c "DROP DATABASE bookstore_dev;"
 ```
 
+If there is need to do something with database (using DBeaver or terminal): 
+```bash
+docker compose exec db psql -U odoo -d postgres -c "DROP DATABASE bookstore_dev;"
+```
+
 #######################ORM#####################################
 Check validation via ORM
 ```bash
