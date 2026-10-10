@@ -81,3 +81,52 @@ book = env['bookstore.book'].create({'name': 'Test Bad', 'price': -5})
 to check that validation works on the ORM level
 (Ctrl+D or exit() to exit)
 
+
+######################DEBUG##################################
+
+Build
+```bash
+docker compose build web
+```
+Run
+```bash
+docker compose up -d
+```
+Check version of debugpy
+```bash
+docker compose exec web python3 -n debugpy --version
+```
+
+
+
+Set Breakpoint
+Create forlder .vscode and file launch.json with the following content:
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Remote Attach (Odoo)",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "127.0.0.1",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/addons",
+                    "remoteRoot": "/mnt/extra-addons"
+                }
+            ],
+            "justMyCode": false,
+            "subProcess": false
+        }
+    ]
+}
+```
+
+
+```bash
+docker compose down && DEBUGPY=wait docker compose up -d
+```

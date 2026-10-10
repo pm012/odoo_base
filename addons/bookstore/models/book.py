@@ -18,15 +18,15 @@ class BookstoreBook(models.Model):
     total_value = fields.Float(
         string='Total Value', 
         compute='_compute_total_value', 
-        store=True
+        #store=True
     )
 
     # Non-stored - for "live" calculations, not saved in the database
-    total_value_display = fields.Float(
-        string='Total Value (Display)',
-        compute='_compute_total_value',
-        store=False
-    )
+    # total_value_display = fields.Float(
+    #     string='Total Value (Display)',
+    #     compute='_compute_total_value',
+    #     store=False
+    # )
 
     genre_ids = fields.Many2many(
     comodel_name='bookstore.genre',
@@ -38,13 +38,15 @@ class BookstoreBook(models.Model):
 
     @api.depends('price', 'quantity')
     def _compute_total_value(self):
+        print(f"!!! _compute_total_value CALLED for {len(self)} records")
         for book in self:
             book.total_value = book.price * book.quantity
     
-    @api.depends('price', 'quantity')
-    def _compute_total_value_display(self):
-        for book in self:
-            book.total_value_display = book.price * book.quantity
+    # @api.depends('price', 'quantity')   
+    # def _compute_total_value_display(self):
+    #     print(f"!!! _compute_total_value_display CALLED for {len(self)} records")
+    #     for book in self:
+    #         book.total_value_display = book.price * book.quantity
     
     # NB!!!!! api.constrains - server validation; api.onchange - client validation (in the form view, before saving the record)
     @api.constrains('price', 'quantity')
