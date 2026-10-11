@@ -130,3 +130,17 @@ Create forlder .vscode and file launch.json with the following content:
 ```bash
 docker compose down && DEBUGPY=wait docker compose up -d
 ```
+
+FINAL
+If not started
+```bash
+docker compse up -d
+```
+then
+
+```bash
+docker compose stop web
+docker compose run --rm --entrypoint /usr/bin/odoo web -u bookstore -d bookstore_db --stop-after-init
+DEBUGPY=wait docker compose up -d web
+```
+in VSCode F5 - to connect to odoo (otherwise won't work)

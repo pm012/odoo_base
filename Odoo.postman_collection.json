@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "2253aa35-564c-468a-8fb4-4f69abe119d3",
+		"name": "Odoo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49474520",
+		"_collection_link": "https://gold-space-9214964.postman.co/workspace/Serhii's-Workspace~10f1f4b4-1ae7-42f6-85aa-a6395f309f57/collection/49474520-2253aa35-564c-468a-8fb4-4f69abe119d3?action=share&source=collection_link&creator=49474520"
+	},
+	"item": [
+		{
+			"name": "Books_rpc",
+			"item": [
+				{
+					"name": "Show_all_books",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {\n        \"limit\": 5\n    },\n    \"id\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8069/api/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8069",
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authors_ext_pure_HTTP",
+			"item": [
+				{
+					"name": "GetNotExistentAuth",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8069/api/v1/authors/9999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8069",
+							"path": [
+								"api",
+								"v1",
+								"authors",
+								"9999"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authors_odoo_jdon_rpc",
+			"item": [
+				{
+					"name": "GetAuthors_RPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"call\",\n    \"params\": {},\n    \"id\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8069/api/authors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8069",
+							"path": [
+								"api",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "book_id",
+			"value": ""
+		},
+		{
+			"key": "author_id",
+			"value": ""
+		}
+	]
+}
