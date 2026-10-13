@@ -20,7 +20,7 @@ class BookstoreApi(http.Controller):
     # GET-ish enpoints (via type='json', Odoo-way)
     # =========================================================
 
-    @http.route('/api/books', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/books', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def list_books(self, limit=10, offset=0, **kwargs):
         """
         The list of books.
@@ -54,7 +54,7 @@ class BookstoreApi(http.Controller):
             'books': [self._serialize_book(b) for b in books],
         }
 
-    @http.route('/api/books/<int:book_id>', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/books/<int:book_id>', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def get_book(self, book_id, **kwargs):
         """
         Get one book by ID.
@@ -73,7 +73,7 @@ class BookstoreApi(http.Controller):
      #========================================================
      #Delete book by ID
      #========================================================
-    @http.route('/api/books/<int:book_id>/delete', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/books/<int:book_id>/delete', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def delete_book(self, book_id, **kwargs):
         """
         Delete one book by ID.  
@@ -94,7 +94,7 @@ class BookstoreApi(http.Controller):
 
 
     # Sample of combination pure rest and odoo rpc
-    @http.route('/api/authors', type='json', auth='public', methods=['POST'], csrf=False)
+    @http.route('/api/authors', type='jsonrpc', auth='public', methods=['POST'], csrf=False)
     def list_authors(self, **kwargs):
         """
         List of authors. Logic is completely delegated to the model.

@@ -144,3 +144,44 @@ docker compose run --rm --entrypoint /usr/bin/odoo web -u bookstore -d bookstore
 DEBUGPY=wait docker compose up -d web
 ```
 in VSCode F5 - to connect to odoo (otherwise won't work)
+
+
+
+
+# ROADMAP
+
+✅ 1. Инфраструктура (odoo.conf, dev/prod, бэкапы)	
+✅ 2. Remote Debugging (debugpy)	
+✅ 3. REST API controllers (for authors only), RPC (for books)
+✅ 4. Many2many (Genres)
+✅ 5. @api.constrains
+✅ 6. @api.onchange 
+✅ 7. _inherit — extending res.partner
+⬜ 8. CRUD overrides (create/write/unlink + sequence)	
+⬜ 9. Graph/Pivot views	
+⬜ 10. QWeb PDF reports	
+⬜ 11. Автотесты (unittest)	
+⬜ 12. CI/CD	
+
+
+
+### API coverage
+✅ REST API in Odoo — type='http', HTTP-methods, JSON-bodies, statuses.
+
+✅ JSON-RPC — type='json', POST for all (Odoo-native).
+
+✅ Difference between 2 above and when to use each of them.
+
+✅ API versioning — /api/v1/.
+
+✅ Thin controllers + thick models — correct architecture.
+
+✅ @api.model methods - for operations on model level.
+
+✅ Mixins — ApiMixin for shared helpers.
+
+✅ Errors handling - ValueError -> HTTP 400.
+
+✅ Serialization - to_api_dict().
+
+✅ Correct HTTP-contract — 200, 201, 400, 404.
