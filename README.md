@@ -146,8 +146,6 @@ DEBUGPY=wait docker compose up -d web
 in VSCode F5 - to connect to odoo (otherwise won't work)
 
 
-
-
 # ROADMAP
 
 ✅ 1. Инфраструктура (odoo.conf, dev/prod, бэкапы)	
@@ -156,32 +154,44 @@ in VSCode F5 - to connect to odoo (otherwise won't work)
 ✅ 4. Many2many (Genres)
 ✅ 5. @api.constrains
 ✅ 6. @api.onchange 
-✅ 7. _inherit — extending res.partner
-⬜ 8. CRUD overrides (create/write/unlink + sequence)	
+✅ 7. _inherit — extending res.partner 
+✅ 8. CRUD overrides (create/write/unlink + sequence)	(override create() via super())
 ⬜ 9. Graph/Pivot views	
 ⬜ 10. QWeb PDF reports	
-⬜ 11. Автотесты (unittest)	
+⬜ 11. Autotests (unittest)	
 ⬜ 12. CI/CD	
 
 
 
 ### API coverage
-✅ REST API in Odoo — type='http', HTTP-methods, JSON-bodies, statuses.
+1. REST API in Odoo — type='http', HTTP-methods, JSON-bodies, statuses.
+2. JSON-RPC — type='json', POST for all (Odoo-native).
+3. Difference between 2 above and when to use each of them.
+4. API versioning — /api/v1/.
+5. Thin controllers + thick models — correct architecture.
+6. @api.model methods - for operations on model level.
+7. Mixins — ApiMixin for shared helpers.
+8. Errors handling - ValueError -> HTTP 400.
+9. Serialization - to_api_dict().
+10. Correct HTTP-contract — 200, 201, 400, 404.
 
-✅ JSON-RPC — type='json', POST for all (Odoo-native).
+### CRUD coverage
+1. @api.constrains('favorite_genre_ids') 
+2. @api.model_create_multi + create() with  super() 
+3. write() с super() and logging added
+4. Test 1 (6 жанров) → ValidationError
+5. Test 2 (create/write) → log in  docker compose logs
+Create/update check in logs:
+```bash 
+docker compose logs web --tail=10 | grep "Bookstore"
+```
+7. Test 4 (search) → works
 
-✅ Difference between 2 above and when to use each of them.
-
-✅ API versioning — /api/v1/.
-
-✅ Thin controllers + thick models — correct architecture.
-
-✅ @api.model methods - for operations on model level.
-
-✅ Mixins — ApiMixin for shared helpers.
-
-✅ Errors handling - ValueError -> HTTP 400.
-
-✅ Serialization - to_api_dict().
-
-✅ Correct HTTP-contract — 200, 201, 400, 404.
+```bash
+docker compose exec web odoo shell -d bookstore_db
+#----------------------------------------------------
+genre = env['bookstore.genre'].search([('name', '=', 'Fiction')], limit=1)
+partners = env['res.partner'].search([('favorite_genre_ids', 'in', genre.id)])
+print(partners.mapped('name'))
+# Expected: list of partners with a genre Fiction
+```
