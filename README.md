@@ -150,7 +150,7 @@ in VSCode F5 - to connect to odoo (otherwise won't work)
 
 ✅ 1. Инфраструктура (odoo.conf, dev/prod, бэкапы)	
 ✅ 2. Remote Debugging (debugpy)	
-✅ 3. REST API controllers (for authors only), RPC (for books)
+✅ 3. REST API controllers (for authors only), RPC (for books) + API for external extended modules (partners)
 ✅ 4. Many2many (Genres)
 ✅ 5. @api.constrains
 ✅ 6. @api.onchange 

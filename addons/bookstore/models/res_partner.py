@@ -87,3 +87,59 @@ class ResPartner(models.Model):
                     )
 
         return result
+
+    # =========================================================
+    # API: serialization
+    # =========================================================
+
+    def to_api_dict(self, include_genres=True):
+        """
+        Serialization of partner for API.
+
+        :param include_genres: bool — to define if list of genreshould be included
+        :return: dict
+        """
+        self.ensure_one()
+        data = {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email or None,
+            'phone': self.phone or None,
+            'is_company': self.is_company,
+            'city': self.city or None,
+            'country': self.country_id.name if self.country_id else None,
+        }
+        if include_genres:
+            data['favorite_genres'] = [
+                {'id': g.id, 'name': g.name}
+                for g in self.favorite_genre_ids
+            ]
+        return data
+
+    # =========================================================
+    # API: read
+    # =========================================================
+
+    @api.model
+    def get_partners_data(self, limit=None, offset=0, genre_id=None, include_genres=True):
+        """
+        List of partners for API.
+
+        :param limit: int|None — maximum of records
+        :param offset: int — shift(offset)
+        :param genre_id: int|None — filter by favorite genre
+        :param include_genres: bool — if genres shuld be included?
+        :return: dict {'count': int, 'limit': ..., 'offset': ..., 'partners': [...]}
+        """
+        domain = []
+        if genre_id:
+            domain.append(('favorite_genre_ids', 'in', genre_id))
+
+        partners = self.search(domain, limit=limit, offset=offset)
+        return {
+            'count': self.search_count(domain),
+            'limit': limit,
+            'offset': offset,
+            'genre_id': genre_id,
+            'partners': [p.to_api_dict(include_genres=include_genres) for p in partners],
+        }
