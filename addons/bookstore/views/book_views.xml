@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="view_bookstore_book_list" model="ir.ui.view">
         <field name="name">bookstore.book.list</field>
         <field name="model">bookstore.book</field>
@@ -12,11 +11,9 @@
                 <field name="isbn"/>
                 <field name="quantity"/>
                 <field name="total_value"/>
-
             </list>
         </field>
     </record>
-
     <record id="view_bookstore_book_form" model="ir.ui.view">
         <field name="name">bookstore.book.form</field>
         <field name="model">bookstore.book</field>
@@ -51,16 +48,59 @@
             </form>
         </field>
     </record>
-
+    <record id="view_bookstore_book_graph" model="ir.ui.view">
+        <field name="name">bookstore.book.graph</field>
+        <field name="model">bookstore.book</field>
+        <field name="arch" type="xml">
+            <graph string="Books Analysis" type="bar" sample="1">
+                <field name="author_id"/>
+                <field name="genre_ids"/>
+                <field name="total_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="view_bookstore_book_pivot" model="ir.ui.view">
+        <field name="name">bookstore.book.pivot</field>
+        <field name="model">bookstore.book</field>
+        <field name="arch" type="xml">
+            <pivot string="Books Pivot" sample="1">
+                <field name="author_id" type="row"/>
+                <field name="genre_ids" type="col"/>
+                <field name="total_value" type="measure"/>
+                <field name="quantity" type="measure"/>
+                <field name="price" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_bookstore_book_search" model="ir.ui.view">
+        <field name="name">bookstore.book.search</field>
+        <field name="model">bookstore.book</field>
+        <field name="arch" type="xml">
+            <search string="Books Search">
+                <field name="name" string="Title"/>
+                <field name="author_id"/>
+                <field name="isbn"/>
+                <field name="genre_ids"/>
+                <filter name="filter_active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="filter_inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <filter name="group_by_author" string="Author"
+                    context="{'group_by': 'author_id'}"/>
+                <filter name="group_by_genre" string="Genre"
+                    context="{'group_by': 'genre_ids'}"/>
+            </search>
+        </field>
+    </record>
     <record id="action_bookstore_book" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">bookstore.book</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,graph,pivot</field>
         <field name="view_ids" eval="[(5, 0, 0), 
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_bookstore_book_list')}), 
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_bookstore_book_form')})]"/>
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_bookstore_book_form')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_bookstore_book_graph')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_bookstore_book_pivot')})]"/>
+        <field name="search_view_id" ref="view_bookstore_book_search"/>
     </record>
-
     <record id="view_bookstore_author_list" model="ir.ui.view">
         <field name="name">bookstore.author.list</field>
         <field name="model">bookstore.author</field>
@@ -71,8 +111,7 @@
             </list>
         </field>
     </record>
-
-        <record id="view_bookstore_author_form" model="ir.ui.view">
+    <record id="view_bookstore_author_form" model="ir.ui.view">
         <field name="name">bookstore.author.form</field>
         <field name="model">bookstore.author</field>
         <field name="arch" type="xml">
@@ -102,8 +141,6 @@
             </form>
         </field>
     </record>
-
-
     <record id="action_bookstore_author" model="ir.actions.act_window">
         <field name="name">Authors</field>
         <field name="res_model">bookstore.author</field>
@@ -112,9 +149,7 @@
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_bookstore_author_list')}), 
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_bookstore_author_form')})]"/>
     </record>
-
     <menuitem id="menu_bookstore_root" name="Bookstore" sequence="10"/>
     <menuitem id="menu_bookstore_books" name="Books" parent="menu_bookstore_root" action="action_bookstore_book" sequence="10"/>
     <menuitem id="menu_bookstore_authors" name="Authors" parent="menu_bookstore_root" action="action_bookstore_author" sequence="20"/>
-
 </odoo>

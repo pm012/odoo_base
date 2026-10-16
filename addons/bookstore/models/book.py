@@ -11,14 +11,15 @@ class BookstoreBook(models.Model):
     name = fields.Char(string='Title', required=True)
     author_id = fields.Many2one('bookstore.author', string='Author', ondelete='restrict')
     description = fields.Html(string='Description')
-    price = fields.Float(string='Price', default=0.0)
+    price = fields.Float(string='Price', default=0.0, aggregator='avg')
     isbn = fields.Char(string='ISBN')
     active = fields.Boolean(string='Active', default=True)
-    quantity = fields.Integer(string='Quantity', default=0)
+    quantity = fields.Integer(string='Quantity', default=0, aggregator='avg')
     total_value = fields.Float(
-        string='Total Value', 
-        compute='_compute_total_value', 
-        #store=True
+        string='Total Value',
+        compute='_compute_total_value',
+        store=True,
+        aggregator='sum',   # ← added to get graph
     )
 
     # Non-stored - for "live" calculations, not saved in the database

@@ -156,7 +156,7 @@ in VSCode F5 - to connect to odoo (otherwise won't work)
 ✅ 6. @api.onchange 
 ✅ 7. _inherit — extending res.partner 
 ✅ 8. CRUD overrides (create/write/unlink + sequence)	(override create() via super())
-⬜ 9. Graph/Pivot views	
+✅ 9. Graph/Pivot views	
 ⬜ 10. QWeb PDF reports	
 ⬜ 11. Autotests (unittest)	
 ⬜ 12. CI/CD	
