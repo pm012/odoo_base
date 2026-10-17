@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>    
+    <record id="action_report_book_inventory" model="ir.actions.report">
+        <field name="name">Book Inventory</field>
+        <field name="model">bookstore.book</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bookstore.report_book_inventory</field>
+        <field name="report_file">bookstore.report_book_inventory</field>
+        <field name="print_report_name">'Book Inventory - %s' % (object.env.cr.dbname)</field>
+        <field name="binding_model_id" ref="model_bookstore_book"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

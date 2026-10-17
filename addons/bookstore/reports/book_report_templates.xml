@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>   
+    <template id="report_book_inventory">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">                   
+                    <h2 class="text-center mb-4">Book Inventory Report</h2>                   
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Date:</strong>
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong>Total books:</strong>
+                            <span t-esc="len(docs)"/>
+                        </div>
+                    </div>                   
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>ISBN</th>
+                                <th class="text-end">Price</th>
+                                <th class="text-end">Qty</th>
+                                <th class="text-end">Total Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="grand_total" t-value="0"/>
+                            <t t-foreach="docs" t-as="book">
+                                <tr>
+                                    <td t-esc="book_index + 1"/>
+                                    <td t-esc="book.name"/>
+                                    <td t-esc="book.author_id.name or '—'"/>
+                                    <td t-esc="book.isbn or '—'"/>
+                                    <td class="text-end" t-esc="'%.2f' % book.price"/>
+                                    <td class="text-end" t-esc="book.quantity"/>
+                                    <td class="text-end" t-esc="'%.2f' % book.total_value"/>
+                                </tr>
+                                <t t-set="grand_total" t-value="grand_total + book.total_value"/>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr class="fw-bold">
+                                <td colspan="6" class="text-end">Grand Total:</td>
+                                <td class="text-end" t-esc="'%.2f' % grand_total"/>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
