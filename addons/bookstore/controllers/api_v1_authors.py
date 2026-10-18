@@ -100,9 +100,10 @@ class ApiV1Authors(http.Controller, ApiMixin):
         payload, error = self._parse_json_body()
         if error:
             return error
-
+        author_data = None
         try:
-            author_data = request.env[self.MODEL].sudo().create_from_api(payload)
+            with request.env.cr.savepoint():
+                author_data = request.env[self.MODEL].sudo().create_from_api(payload)
         except ValueError as e:
             return self._error(str(e), status=400)
 
@@ -133,9 +134,10 @@ class ApiV1Authors(http.Controller, ApiMixin):
         payload, error = self._parse_json_body()
         if error:
             return error
-
+        author = None
         try:
-            author.write_from_api(payload)
+            with request.env.cr.savepoint():
+                author.write_from_api(payload)
         except ValueError as e:
             return self._error(str(e), status=400)
 
@@ -159,9 +161,10 @@ class ApiV1Authors(http.Controller, ApiMixin):
         author = request.env[self.MODEL].sudo().browse(author_id)
         if not author.exists():
             return self._error('Author not found', status=404, extra={'author_id': author_id})
-
+        author = None
         try:
-            author.unlink()
+            with request.env.cr.savepoint():
+                author.unlink()
         except Exception as e:
             _logger.exception("API: failed to delete author %s", author_id)
             return self._error(

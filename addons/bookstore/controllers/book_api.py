@@ -143,15 +143,23 @@ class BookstoreApi(http.Controller):
         if not data.get('name'):
             return self._json_response({'error': 'Field "name" is required'}, status=400)
 
+        # create safe point for rollback in case incorrect request (with exception)
+        # to fix creating record after exception
+
+        book = None
+
         try:
-            book = request.env['bookstore.book'].sudo().create({
-                'name': data['name'],
-                'price': data.get('price', 0.0),
-                'quantity': data.get('quantity', 0),
-                'author_id': data.get('author_id'),
-                'isbn': data.get('isbn'),
-                'description': data.get('description', ''),
-            })
+            # savepoint - point of rollback inside the transaction
+            with request.env.cr.savepoint():
+                book = request.env['bookstore.book'].sudo().create({
+                    'name': data['name'],
+                    'price': data.get('price', 0.0),
+                    'quantity': data.get('quantity', 0),
+                    'author_id': data.get('author_id'),
+                    'isbn': data.get('isbn'),
+                    'description': data.get('description', ''),
+                })
+                # If create() throws ValidationError - savepoint will rollback it and pass exception on the upper level
         except Exception as e:
             _logger.exception("API: create_book failed")
             return self._json_response({'error': str(e)}, status=400)
