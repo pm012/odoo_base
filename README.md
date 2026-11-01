@@ -157,8 +157,8 @@ in VSCode F5 - to connect to odoo (otherwise won't work)
 ✅ 7. _inherit — extending res.partner 
 ✅ 8. CRUD overrides (create/write/unlink + sequence)	(override create() via super())
 ✅ 9. Graph/Pivot views	
-⬜ 10. QWeb PDF reports	
-⬜ 11. Autotests (unittest)	
+✅ 10. QWeb PDF reports	
+✅11. Autotests (unittest)	
 ⬜ 12. CI/CD	
 
 
@@ -179,13 +179,13 @@ in VSCode F5 - to connect to odoo (otherwise won't work)
 1. @api.constrains('favorite_genre_ids') 
 2. @api.model_create_multi + create() with  super() 
 3. write() с super() and logging added
-4. Test 1 (6 жанров) → ValidationError
-5. Test 2 (create/write) → log in  docker compose logs
+4. Test 1 (6 жанров) -> ValidationError
+5. Test 2 (create/write) -> log in  docker compose logs
 Create/update check in logs:
 ```bash 
 docker compose logs web --tail=10 | grep "Bookstore"
 ```
-7. Test 4 (search) → works
+7. Test 4 (search) -> works
 
 ```bash
 docker compose exec web odoo shell -d bookstore_db
@@ -194,4 +194,17 @@ genre = env['bookstore.genre'].search([('name', '=', 'Fiction')], limit=1)
 partners = env['res.partner'].search([('favorite_genre_ids', 'in', genre.id)])
 print(partners.mapped('name'))
 # Expected: list of partners with a genre Fiction
+```
+
+
+# UNIT TESTS
+
+To run tests execute:
+```bash
+docker compose run --rm --entrypoint /usr/bin/odoo web \
+    --test-enable \
+    --test-tags=/bookstore \
+    -u bookstore \
+    -d bookstore_db \
+    --stop-after-init
 ```
