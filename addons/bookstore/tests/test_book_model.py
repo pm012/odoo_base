@@ -43,7 +43,7 @@ class TestBookModel(TransactionCase):
     def test_compute_total_value(self):
         """total_value = price * quantity."""
         book = self._create_book(price=10.0, quantity=5)
-        self.assertEqual(book.total_value, 999.0)
+        self.assertEqual(book.total_value, 50.0) 
 
     def test_compute_total_value_updates_on_write(self):
         """On price change — total_value should be recalculated."""
