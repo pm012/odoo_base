@@ -39,7 +39,7 @@ class BookstoreBook(models.Model):
 
     @api.depends('price', 'quantity')
     def _compute_total_value(self):
-        print(f"!!! _compute_total_value CALLED for {len(self)} records")
+        #print(f"!!! _compute_total_value CALLED for {len(self)} records")
         for book in self:
             book.total_value = book.price * book.quantity
     

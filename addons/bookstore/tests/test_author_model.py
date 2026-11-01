@@ -63,13 +63,15 @@ class TestAuthorModel(TransactionCase):
     def test_get_authors_data_limit(self):
         """limit обмежує кількість записів."""
         # Clear not existent
-        self.env['bookstore.author'].search([]).unlink()
+        #self.env['bookstore.author'].search([]).unlink()
+        initial_count = self.env['bookstore.author'].search_count([])
         for i in range(5):
-            self.env['bookstore.author'].create({'name': f'Author {i}'})
+            self.env['bookstore.author'].create({'name': f'Author Limit Test {i}'})
 
         result = self.env['bookstore.author'].get_authors_data(limit=3)
         self.assertEqual(len(result['authors']), 3)
-        self.assertEqual(result['count'], 5)
+        # Overal quantity = initial quantity + 5        
+        self.assertEqual(result['count'], initial_count + 5)
 
     # =========================================================
     # create_from_api
