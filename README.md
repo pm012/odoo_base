@@ -3,18 +3,14 @@
 ![Odoo Tests](https://github.com/pm012/odoo_base/actions/workflows/odoo-tests.yml/badge.svg)
 
 
-# Bookstore
-The bookstore is ERP for simple book store writen uding Odoo 19. 
+*Description:* The bookstore is ERP for simple book store writen uding Odoo 19. 
 Further description and instructions TBD later as the project is in progress (features and demo)
 
 
 
 --------------------------------------------------------------
 # TECH
-NB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Database: bookstore_db
-NB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
 For linux 
 ```bash

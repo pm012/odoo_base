@@ -32,6 +32,7 @@ jobs:
           docker compose run --rm --entrypoint /usr/bin/odoo web \
             --test-enable \
             --test-tags=/bookstore \
+            -i bookstore \
             -u bookstore \
             -d bookstore_db \
             --stop-after-init
