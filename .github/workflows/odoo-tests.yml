@@ -1,0 +1,47 @@
+name: Odoo Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file for Docker Compose
+        run: |
+          echo "DEBUGPY=" > .env
+          # Если у тебя есть другие переменные — добавь здесь
+
+      - name: Build and start containers
+        run: |
+          docker compose up -d --build
+          # Ждём, пока PostgreSQL будет готов
+          sleep 10
+          docker compose ps
+
+      - name: Run Odoo tests
+        run: |
+          docker compose stop web
+          docker compose run --rm --entrypoint /usr/bin/odoo web \
+            --test-enable \
+            --test-tags=/bookstore \
+            -u bookstore \
+            -d bookstore_db \
+            --stop-after-init
+
+      - name: Show logs on failure
+        if: failure()
+        run: |
+          docker compose logs web --tail=100
+          docker compose logs db --tail=50
+
+      - name: Cleanup
+        if: always()
+        run: docker compose down -v
