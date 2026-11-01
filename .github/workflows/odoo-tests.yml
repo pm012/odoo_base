@@ -17,12 +17,12 @@ jobs:
       - name: Create .env file for Docker Compose
         run: |
           echo "DEBUGPY=" > .env
-          # Если у тебя есть другие переменные — добавь здесь
+          # If other variables needed should be added here
 
       - name: Build and start containers
         run: |
           docker compose up -d --build
-          # Ждём, пока PostgreSQL будет готов
+          # Wating till PostgreSQL is ready
           sleep 10
           docker compose ps
 
